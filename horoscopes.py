@@ -2,7 +2,7 @@
 January 10, 2017
 
 Program to take in user birth date and display horoscope, 
-scraped from an astrology website. Used tutorial for scraping 
+scraped from pages on an astrology website. Used tutorial for scraping 
 a web page using BeautifulSoup on AnalyticsVidhya
 '''
 
@@ -16,7 +16,8 @@ def main():
 	find_horoscope(sign)
 
 def show_sign():
-	print "(Don't enter any leading zeroes)"
+	print "\nTODAY'S HOROSCOPES"
+	print "\n(Don't enter any leading zeroes)"
 	month = int(raw_input("What month were you born in? (ex. if January, input 1): "))
 	day = int(raw_input("What date? (ex. 31): "))
 
@@ -50,16 +51,63 @@ def get_sign(month,date):
 		return "Capricorn"
 
 def find_horoscope(sign):
-	# Specify url
-	astro = "http://www.horoscope.com/us/index.aspx"
+
+	# Assign horoscope site
+	base = "http://www.horoscope.com/us/horoscopes/general/horoscope-general-daily-today.aspx?sign="
+	if sign == "Aries":
+		scrape = base + "1"
+	elif sign == "Taurus":
+		scrape = base + "2"
+	elif sign == "Gemini":
+		scrape = base + "3"
+	elif sign == "Cancer":
+		scrape = base + "4"
+	elif sign == "Leo":
+		scrape = base + "5"
+	elif sign == "Virgo":
+		scrape = base + "6"
+	elif sign == "Libra":
+		scrape = base + "7"
+	elif sign == "Scorpio":
+		scrape = base + "8"
+	elif sign == "Sagittarius":
+		scrape = base + "9"
+	elif sign == "Capricorn":
+		scrape = base + "10"
+	elif sign == "Aquarius":
+		scrape = base + "11"
+	elif sign == "Pisces":
+		scrape = base + "12"
 
 	# Query website and return html to the variable 'page'
-	page = urllib2.urlopen(astro)
+	page = urllib2.urlopen(scrape)
 
 	# Parse html in the 'page variable' and store it in BeautifulSoup format
-	soup = BeautifulSoup(page)
-	print soup.prettify()
+	soup = BeautifulSoup(page, "html.parser")
+	horoscope = str(soup.find(class_ = "block-horoscope-text f16 l20"))
+	date = str(soup.find(class_ = "block-horoscope-date"))
 
+	print "\n- - - - - %s - - - - -" % (sign.upper())
+	print "%s\n" % remove_html(date)
+	print remove_html(horoscope)
+	print "\n"
+
+def remove_html(horoscope):
+	# http://stackoverflow.com/questions/753052/strip-html-from-strings-in-python
+	tag = False
+	quote = False
+	out = ""
+
+	for c in horoscope:
+		if c == '<' and not quote:
+			tag = True
+		elif c == '>' and not quote:
+			tag = False
+		elif (c == '"' or c == "'") and tag:
+			quote = not quote
+		elif not tag:
+			out = out + c
+	return out.strip()
 main()
 
 
