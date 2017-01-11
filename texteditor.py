@@ -1,3 +1,11 @@
+'''
+January 6, 2017
+
+Python Text Editor
+Tutorial found here: 
+http://www.instructables.com/id/Create-a-Simple-Python-Text-Editor/
+'''
+
 import sys
 v = sys.version
 if "2.7" in v:

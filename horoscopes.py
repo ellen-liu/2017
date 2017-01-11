@@ -1,4 +1,19 @@
-# Program to take in user birth date and display horoscope, scraped from a website
+'''
+January 10, 2017
+
+Program to take in user birth date and display horoscope, 
+scraped from an astrology website. Used tutorial for scraping 
+a web page using BeautifulSoup on AnalyticsVidhya
+'''
+
+# import library used to query a website
+import urllib2
+# import BeautifulSoup functions to parse the data from the web
+from bs4 import BeautifulSoup
+
+def main():
+	sign = show_sign()
+	find_horoscope(sign)
 
 def show_sign():
 	print "(Don't enter any leading zeroes)"
@@ -6,7 +21,7 @@ def show_sign():
 	day = int(raw_input("What date? (ex. 31): "))
 
 	sign = get_sign(month,day)
-	print "Your sign is %s" % sign
+	return sign
 
 def get_sign(month,date):
 	if ((month == 1 and date >= 20) or (month == 2 and date <= 18)):
@@ -34,4 +49,22 @@ def get_sign(month,date):
 	elif ((month == 12 and date >= 22) or (month == 1 and date <= 19)):
 		return "Capricorn"
 
-show_sign()
+def find_horoscope(sign):
+	# Specify url
+	astro = "http://www.horoscope.com/us/index.aspx"
+
+	# Query website and return html to the variable 'page'
+	page = urllib2.urlopen(astro)
+
+	# Parse html in the 'page variable' and store it in BeautifulSoup format
+	soup = BeautifulSoup(page)
+	print soup.prettify()
+
+main()
+
+
+
+
+
+
+

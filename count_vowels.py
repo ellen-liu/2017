@@ -1,4 +1,9 @@
-# Program to count the number of vowels in a string and report a sum of each vowel found
+'''
+January 6, 2017
+
+Program to count the number of vowels in a 
+string and report a sum of each vowel found
+'''
 
 def count_vowels():
 	word = raw_input("Enter a word: ")
