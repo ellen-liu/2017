@@ -1,5 +1,5 @@
 '''
-January 10, 2017
+January 10, 2017 - January 11, 2017
 
 Program to take in user birth date and display horoscope, 
 scraped from pages on an astrology website. Used tutorial for scraping 
