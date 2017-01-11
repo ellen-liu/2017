@@ -2,11 +2,10 @@
 
 def show_sign():
 	print "(Don't enter any leading zeroes)"
-	month = raw_input("What month were you born in? (ex. if January, input 1): ")
-	day = raw_input("What date? (ex. 31): ")
+	month = int(raw_input("What month were you born in? (ex. if January, input 1): "))
+	day = int(raw_input("What date? (ex. 31): "))
 
 	sign = get_sign(month,day)
-	print sign
 	print "Your sign is %s" % sign
 
 def get_sign(month,date):
